@@ -55,6 +55,21 @@ namespace Salon
       Assert.Equal(expected, result);
     }
 
+    [Fact]
+    public void Delete_OneClient_ClientDeleted()
+    {
+      Client firstClient = new Client("Mariah");
+      firstClient.Save();
+      Client secondClient = new Client("Britney");
+      secondClient.Save();
+
+      secondClient.Delete();
+      List<Client> output = Client.GetAll();
+      List<Client> expected = new List<Client>{firstClient};
+
+      Assert.Equal(expected, output);
+    }
+
     public void Dispose()
     {
       Client.DeleteAll();
