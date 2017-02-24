@@ -1,0 +1,10 @@
+@{
+    Layout="Shared/_Layout.cshtml";
+}
+
+@foreach (var client in @Model)
+{
+  <h3>@client.GetName()</h3>
+  <p>@client.GetNotes()</p>
+  <!-- display client's stylist here. maybe with new column in client table? -->
+}
