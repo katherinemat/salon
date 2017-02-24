@@ -42,6 +42,19 @@ namespace Salon
       Assert.Equal(expected, result);
     }
 
+    [Fact]
+    public void SaveGetAll_OneClient_AssignIdToClient()
+    {
+      Client newClient = new Client("Britney");
+      newClient.Save();
+      Client savedClient = Client.GetAll()[0];
+
+      int result = savedClient.GetId();
+      int expected = newClient.GetId();
+
+      Assert.Equal(expected, result);
+    }
+
     public void Dispose()
     {
       Client.DeleteAll();
