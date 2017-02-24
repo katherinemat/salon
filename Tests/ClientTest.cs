@@ -70,6 +70,19 @@ namespace Salon
       Assert.Equal(expected, output);
     }
 
+    [Fact]
+    public void UpdateName_OneClient_NewInfo()
+    {
+      Client newClient = new Client("Brit");
+      newClient.Save();
+      string newName = "Britney";
+      newClient.UpdateName(newName);
+
+      string output = newClient.GetName();
+
+      Assert.Equal(newName, output);
+    }
+
     public void Dispose()
     {
       Client.DeleteAll();
