@@ -1,0 +1,19 @@
+@{
+    Layout="Shared/_Layout.cshtml";
+}
+
+@foreach (var stylist in @Model)
+{
+  <h3>@stylist.GetName()</h3>
+  <!-- display all stylist's clients? -->
+}
+
+<h2>Add new stylist</h2>
+<form action="/stylists/new" method="post" id="new-stylist">
+  <label for="name">Name</label>
+  <input type="text" name="name" id="name">
+
+  </div>
+</div>
+<button type="submit" name="button" class="btn btn-lg btn-info">Submit</button>
+</form>
