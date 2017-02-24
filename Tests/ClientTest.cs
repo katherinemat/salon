@@ -83,6 +83,20 @@ namespace Salon
       Assert.Equal(newName, output);
     }
 
+    [Fact]
+    public void Find_AllClients_FoundClient()
+    {
+      Client client1 = new Client("Britney", 1);
+      client1.Save();
+      Client client2 = new Client("Christina", 1);
+      client2.Save();
+
+      Client foundClient = Client.Find(client2.GetId());
+      Client expectedClient = client2;
+
+      Assert.Equal(expectedClient, foundClient);
+    }
+
     public void Dispose()
     {
       Client.DeleteAll();
