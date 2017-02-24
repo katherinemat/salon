@@ -1,0 +1,11 @@
+@{
+    Layout="Shared/_Layout.cshtml";
+}
+
+<h2>@Model["stylist"].GetName()</h2>
+
+@foreach (var client in @Model["clients"])
+{
+  <h3>@client.GetName()</h3>
+  <p>@client.GetNotes()</p>
+}
