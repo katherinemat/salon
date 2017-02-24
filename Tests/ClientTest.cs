@@ -10,7 +10,7 @@ namespace Salon
   {
     public ClientTest()
     {
-      DBConfiguration.ConnectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=hair_salon;Integrated Security=SSPI;";
+      DBConfiguration.ConnectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=hair_salon_test;Integrated Security=SSPI;";
     }
     [Fact]
     public void OverrideEquals_TwoSameClients_Same()
@@ -19,6 +19,13 @@ namespace Salon
       Client client2 = new Client("Britney");
 
       Assert.Equal(client1, client2);
+    }
+    [Fact]
+    public void GetAll_DatabaseEmptyAtFirst_NoClients()
+    {
+      int output = Client.GetAll().Count;
+
+      Assert.Equal(0, output);
     }
 
     public void Dispose()
