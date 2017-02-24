@@ -8,11 +8,13 @@ namespace Salon
   {
     private int _id;
     private string _name;
+    private int _stylistId;
 
-    public Client(string Name, int Id = 0)
+    public Client(string Name, int StylistId, int Id = 0)
     {
       _id = Id;
       _name = Name;
+      _stylistId = StylistId;
     }
 
     public override bool Equals(System.Object otherClient)
@@ -26,7 +28,8 @@ namespace Salon
         Client newClient = (Client) otherClient;
         bool idEquality = (this.GetId() == newClient.GetId());
         bool nameEquality = (this.GetName() == newClient.GetName());
-        return (idEquality && nameEquality);
+        bool stylistIdEquality = (this.GetStylistId() == newClient.GetStylistId());
+        return (idEquality && nameEquality && stylistIdEquality);
       }
     }
 
@@ -41,6 +44,14 @@ namespace Salon
     public string GetName()
     {
       return _name;
+    }
+    public void SetStylistId(int newStylistId)
+    {
+      _stylistId = newStylistId;
+    }
+    public int GetStylistId()
+    {
+      return _stylistId;
     }
 
     public static List<Client> GetAll()
@@ -57,7 +68,8 @@ namespace Salon
       {
         int clientId = rdr.GetInt32(0);
         string clientName = rdr.GetString(1);
-        Client newClient = new Client(clientName, clientId);
+        int clientStylistId = rdr.GetInt32(2);
+        Client newClient = new Client(clientName, clientStylistId, clientId);
         allClients.Add(newClient);
       }
       if (rdr != null)
@@ -76,12 +88,17 @@ namespace Salon
       SqlConnection conn = DB.Connection();
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("INSERT INTO clients (name) OUTPUT INSERTED.id VALUES (@ClientName);", conn);
+      SqlCommand cmd = new SqlCommand("INSERT INTO clients (name, stylist_id) OUTPUT INSERTED.id VALUES (@ClientName, @ClientStylistId);", conn);
 
       SqlParameter nameParameter = new SqlParameter();
       nameParameter.ParameterName = "@ClientName";
       nameParameter.Value = this.GetName();
       cmd.Parameters.Add(nameParameter);
+
+      SqlParameter stylistIdParameter = new SqlParameter();
+      stylistIdParameter.ParameterName = "@ClientStylistId";
+      stylistIdParameter.Value = this.GetStylistId();
+      cmd.Parameters.Add(stylistIdParameter);
 
       SqlDataReader rdr = cmd.ExecuteReader();
 

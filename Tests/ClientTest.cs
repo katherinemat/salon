@@ -16,8 +16,8 @@ namespace Salon
     [Fact]
     public void OverrideEquals_TwoSameClients_Same()
     {
-      Client client1 = new Client("Britney");
-      Client client2 = new Client("Britney");
+      Client client1 = new Client("Britney", 1);
+      Client client2 = new Client("Britney", 1);
 
       Assert.Equal(client1, client2);
     }
@@ -33,7 +33,7 @@ namespace Salon
     [Fact]
     public void Save_OneClient_SavesToDatabase()
     {
-      Client newClient = new Client("Britney");
+      Client newClient = new Client("Britney", 1);
       newClient.Save();
 
       List<Client> result = Client.GetAll();
@@ -45,7 +45,7 @@ namespace Salon
     [Fact]
     public void SaveGetAll_OneClient_AssignIdToClient()
     {
-      Client newClient = new Client("Britney");
+      Client newClient = new Client("Britney", 1);
       newClient.Save();
       Client savedClient = Client.GetAll()[0];
 
@@ -58,9 +58,9 @@ namespace Salon
     [Fact]
     public void Delete_OneClient_ClientDeleted()
     {
-      Client firstClient = new Client("Mariah");
+      Client firstClient = new Client("Mariah", 1);
       firstClient.Save();
-      Client secondClient = new Client("Britney");
+      Client secondClient = new Client("Britney", 1);
       secondClient.Save();
 
       secondClient.Delete();
@@ -73,7 +73,7 @@ namespace Salon
     [Fact]
     public void UpdateName_OneClient_NewInfo()
     {
-      Client newClient = new Client("Brit");
+      Client newClient = new Client("Brit", 1);
       newClient.Save();
       string newName = "Britney";
       newClient.UpdateName(newName);
