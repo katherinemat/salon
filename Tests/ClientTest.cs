@@ -71,7 +71,7 @@ namespace Salon
     }
 
     [Fact]
-    public void UpdateName_OneClient_NewInfo()
+    public void UpdateName_OneClient_NewName()
     {
       Client newClient = new Client("Brit", "be careful about using too much bleach", 1);
       newClient.Save();
@@ -84,7 +84,7 @@ namespace Salon
     }
 
     [Fact]
-    public void UpdateNotes_OneClient_NewInfo()
+    public void UpdateNotes_OneClient_NewNotes()
     {
       Client newClient = new Client("Brit", "be careful about using too much bleach", 1);
       newClient.Save();
@@ -94,6 +94,23 @@ namespace Salon
       string output = newClient.GetNotes();
 
       Assert.Equal(newNotes, output);
+    }
+
+    [Fact]
+    public void UpdateStylist_OneClient_NewStylist()
+    {
+      Stylist stylist1 = new Stylist("Kerry");
+      stylist1.Save();
+      Stylist stylist2 = new Stylist("Nicole");
+      stylist2.Save();
+      Client newClient = new Client("Brit", "be careful about using too much bleach", stylist1.GetId());
+      newClient.Save();
+
+      int newStylistId = stylist2.GetId();
+      newClient.UpdateStylistId(newStylistId);
+      int output = newClient.GetStylistId();
+
+      Assert.Equal(newStylistId, output);
     }
 
     [Fact]

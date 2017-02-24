@@ -1,0 +1,29 @@
+@{
+    Layout="Shared/_Layout.cshtml";
+}
+
+<h2>Edit client: @Model["client"].GetName()</h2>
+<form action="/client/edit/@Model["client"].GetId()" method="post" id="update-client">
+  <input type="hidden" name="_method" value="PATCH">
+
+  <input name="stylist-id" type="hidden" value="@Model["stylist"].GetId()">
+
+  <label for="client-name">Name</label>
+  <input id="client-name" name="client-name" type="text" placeholder="@Model["client"].GetName()">
+
+  <label for="client-notes">Notes</label>
+  <input id="client-notes" name="client-notes" type="text" placeholder="@Model["client"].GetNotes()">
+
+  <label for="client-stylist">Stylist</label>
+  <select name="client-stylist">
+    <option value="0"></option>
+    @foreach (var stylist in @Model["stylists"])
+    {
+      <option value="@stylist.GetId()">@stylist.GetName()</option>
+    }
+  </select>
+
+  <button type="submit" class="btn btn-lg btn-info">Submit</button>
+</form>
+
+<a href="/stylist/@Model["stylist"].GetId()">Done</a>

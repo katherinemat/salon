@@ -53,6 +53,32 @@ namespace Salon
         model.Add("clients", foundStylistClients);
         return View["stylist.cshtml", model];
       };
+      Get["/client/edit/{id}"] = parameters => {
+        Dictionary<string, object> model = new Dictionary<string, object>{};
+        var foundClient = Client.Find(parameters.id);
+        model.Add("client", foundClient);
+        var foundClientStylist = Stylist.Find(foundClient.GetStylistId());
+        model.Add("stylist", foundClientStylist);
+        var allStylists = Stylist.GetAll();
+        model.Add("stylists", allStylists);
+        return View["client_edit.cshtml", model];
+      };
+      // Patch["client/edit/{id}"] = parameters => {
+      //   Client foundClient = Client.Find(parameters.id);
+      //   foundClient.UpdateName(Request.Form["client-name"]);
+      //   foundClient.UpdateNotes(Request.Form["client-notes"]);
+      //   foundClient.UpdateStylistId(Request.Form["client-stylist"]);
+      //   Dictionary<string, object> model = new Dictionary<string, object>{};
+      //   var updatedClient = Client.Find(parameters.id);
+      //   var foundStylist = Stylist.Find(foundClient.GetStylistId());
+      //   var allStylists = Stylist.GetAll();
+      //   var clientReviews = foundClient.GetClientReview();
+      //   model.Add("cuisines", allStylists);
+      //   model.Add("cuisine", foundStylist);
+      //   model.Add("client", updatedClient);
+      //   model.Add("reviews", clientReviews);
+      //   return View["client_edit.cshtml", model];
+      // };
     }
   }
 }
