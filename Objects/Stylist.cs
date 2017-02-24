@@ -43,6 +43,34 @@ namespace Salon
       return _name;
     }
 
+    public void Save()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("INSERT INTO stylists (name) OUTPUT INSERTED.id VALUES (@StylistName);", conn);
+
+      SqlParameter nameParameter = new SqlParameter();
+      nameParameter.ParameterName = "@StylistName";
+      nameParameter.Value = this.GetName();
+      cmd.Parameters.Add(nameParameter);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        this._id = rdr.GetInt32(0);
+      }
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+    }
+
     public static List<Stylist> GetAll()
     {
       List<Stylist> allStylists = new List<Stylist>{};
@@ -71,24 +99,30 @@ namespace Salon
       return allStylists;
     }
 
-    public void Save()
+    public static Stylist Find(int id)
     {
       SqlConnection conn = DB.Connection();
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("INSERT INTO stylists (name) OUTPUT INSERTED.id VALUES (@StylistName);", conn);
+      SqlCommand cmd = new SqlCommand("SELECT * FROM stylists WHERE id = @StylistId;", conn);
 
-      SqlParameter nameParameter = new SqlParameter();
-      nameParameter.ParameterName = "@StylistName";
-      nameParameter.Value = this.GetName();
-      cmd.Parameters.Add(nameParameter);
-
+      SqlParameter idParameter = new SqlParameter();
+      idParameter.ParameterName = "@StylistId";
+      idParameter.Value = id.ToString();
+      cmd.Parameters.Add(idParameter);
       SqlDataReader rdr = cmd.ExecuteReader();
 
-      while(rdr.Read())
+      int foundId = 0;
+      string foundName = null;
+
+      while (rdr.Read())
       {
-        this._id = rdr.GetInt32(0);
+        foundId = rdr.GetInt32(0);
+        foundName = rdr.GetString(1);
       }
+
+      Stylist foundStylist = new Stylist(foundName, foundId);
+
       if (rdr != null)
       {
         rdr.Close();
@@ -97,6 +131,7 @@ namespace Salon
       {
         conn.Close();
       }
+      return foundStylist;
     }
 
     public List<Client> GetClients()

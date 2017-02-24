@@ -100,6 +100,20 @@ namespace Salon
       Assert.Equal(expected, output);
     }
 
+    [Fact]
+    public void Find_AllStylists_FoundStylist()
+    {
+      Stylist stylist1 = new Stylist("Nicole");
+      stylist1.Save();
+      Stylist stylist2 = new Stylist("Kerry");
+      stylist2.Save();
+
+      Stylist foundStylist = Stylist.Find(stylist2.GetId());
+      Stylist expectedStylist = stylist2;
+
+      Assert.Equal(expectedStylist, foundStylist);
+    }
+
     public void Dispose()
     {
       Stylist.DeleteAll();
