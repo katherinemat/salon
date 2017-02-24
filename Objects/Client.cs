@@ -8,12 +8,14 @@ namespace Salon
   {
     private int _id;
     private string _name;
+    private string _notes;
     private int _stylistId;
 
-    public Client(string Name, int StylistId, int Id = 0)
+    public Client(string Name, string Notes, int StylistId, int Id = 0)
     {
       _id = Id;
       _name = Name;
+      _notes = Notes;
       _stylistId = StylistId;
     }
 
@@ -28,8 +30,9 @@ namespace Salon
         Client newClient = (Client) otherClient;
         bool idEquality = (this.GetId() == newClient.GetId());
         bool nameEquality = (this.GetName() == newClient.GetName());
+        bool notesEquality = (this.GetNotes() == newClient.GetNotes());
         bool stylistIdEquality = (this.GetStylistId() == newClient.GetStylistId());
-        return (idEquality && nameEquality && stylistIdEquality);
+        return (idEquality && nameEquality && notesEquality && stylistIdEquality);
       }
     }
 
@@ -45,6 +48,14 @@ namespace Salon
     {
       return _name;
     }
+    public void SetNotes(string newNotes)
+    {
+      _notes = newNotes;
+    }
+    public string GetNotes()
+    {
+      return _notes;
+    }
     public void SetStylistId(int newStylistId)
     {
       _stylistId = newStylistId;
@@ -59,12 +70,17 @@ namespace Salon
       SqlConnection conn = DB.Connection();
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("INSERT INTO clients (name, stylist_id) OUTPUT INSERTED.id VALUES (@ClientName, @ClientStylistId);", conn);
+      SqlCommand cmd = new SqlCommand("INSERT INTO clients (name, notes, stylist_id) OUTPUT INSERTED.id VALUES (@ClientName, @ClientNotes, @ClientStylistId);", conn);
 
       SqlParameter nameParameter = new SqlParameter();
       nameParameter.ParameterName = "@ClientName";
       nameParameter.Value = this.GetName();
       cmd.Parameters.Add(nameParameter);
+
+      SqlParameter notesParameter = new SqlParameter();
+      notesParameter.ParameterName = "@ClientNotes";
+      notesParameter.Value = this.GetNotes();
+      cmd.Parameters.Add(notesParameter);
 
       SqlParameter stylistIdParameter = new SqlParameter();
       stylistIdParameter.ParameterName = "@ClientStylistId";
@@ -101,8 +117,9 @@ namespace Salon
       {
         int clientId = rdr.GetInt32(0);
         string clientName = rdr.GetString(1);
-        int clientStylistId = rdr.GetInt32(2);
-        Client newClient = new Client(clientName, clientStylistId, clientId);
+        string clientNotes = rdr.GetString(2);
+        int clientStylistId = rdr.GetInt32(3);
+        Client newClient = new Client(clientName, clientNotes, clientStylistId, clientId);
         allClients.Add(newClient);
       }
       if (rdr != null)
@@ -131,16 +148,18 @@ namespace Salon
 
       int foundId = 0;
       string foundName = null;
+      string foundNotes = null;
       int foundStylistId = 0;
 
       while (rdr.Read())
       {
         foundId = rdr.GetInt32(0);
         foundName = rdr.GetString(1);
-        foundStylistId = rdr.GetInt32(2);
+        foundNotes = rdr.GetString(2);
+        foundStylistId = rdr.GetInt32(3);
       }
 
-      Client foundClient = new Client(foundName, foundStylistId, foundId);
+      Client foundClient = new Client(foundName, foundNotes, foundStylistId, foundId);
 
       if (rdr != null)
       {

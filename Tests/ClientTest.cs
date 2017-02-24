@@ -16,8 +16,8 @@ namespace Salon
     [Fact]
     public void OverrideEquals_TwoSameClients_Same()
     {
-      Client client1 = new Client("Britney", 1);
-      Client client2 = new Client("Britney", 1);
+      Client client1 = new Client("Britney", "be careful about using too much bleach", 1);
+      Client client2 = new Client("Britney", "be careful about using too much bleach", 1);
 
       Assert.Equal(client1, client2);
     }
@@ -33,7 +33,7 @@ namespace Salon
     [Fact]
     public void Save_OneClient_SavesToDatabase()
     {
-      Client newClient = new Client("Britney", 1);
+      Client newClient = new Client("Britney", "be careful about using too much bleach", 1);
       newClient.Save();
 
       List<Client> result = Client.GetAll();
@@ -45,7 +45,7 @@ namespace Salon
     [Fact]
     public void SaveGetAll_OneClient_AssignIdToClient()
     {
-      Client newClient = new Client("Britney", 1);
+      Client newClient = new Client("Britney", "be careful about using too much bleach", 1);
       newClient.Save();
       Client savedClient = Client.GetAll()[0];
 
@@ -58,9 +58,9 @@ namespace Salon
     [Fact]
     public void Delete_OneClient_ClientDeleted()
     {
-      Client firstClient = new Client("Mariah", 1);
+      Client firstClient = new Client("Mariah", "be careful about using too much bleach", 1);
       firstClient.Save();
-      Client secondClient = new Client("Britney", 1);
+      Client secondClient = new Client("Britney", "be careful about using too much bleach", 1);
       secondClient.Save();
 
       secondClient.Delete();
@@ -73,7 +73,7 @@ namespace Salon
     [Fact]
     public void UpdateName_OneClient_NewInfo()
     {
-      Client newClient = new Client("Brit", 1);
+      Client newClient = new Client("Brit", "be careful about using too much bleach", 1);
       newClient.Save();
       string newName = "Britney";
       newClient.UpdateName(newName);
@@ -86,9 +86,9 @@ namespace Salon
     [Fact]
     public void Find_AllClients_FoundClient()
     {
-      Client client1 = new Client("Britney", 1);
+      Client client1 = new Client("Britney", "be careful about using too much bleach", 1);
       client1.Save();
-      Client client2 = new Client("Christina", 1);
+      Client client2 = new Client("Christina", "be careful about using too much bleach", 1);
       client2.Save();
 
       Client foundClient = Client.Find(client2.GetId());

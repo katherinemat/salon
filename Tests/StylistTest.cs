@@ -89,9 +89,9 @@ namespace Salon
       Stylist newStylist = new Stylist("Nicole");
       newStylist.Save();
       int newStylistId = newStylist.GetId();
-      Client client1 = new Client("Britney", newStylistId);
+      Client client1 = new Client("Britney", "has extensions", newStylistId);
       client1.Save();
-      Client client2 = new Client("Christina", newStylistId);
+      Client client2 = new Client("Christina", "sings in chair", newStylistId);
       client2.Save();
 
       List<Client> expected = new List<Client>{client1, client2};

@@ -11,7 +11,7 @@ Specs:
 10. Delete client from system; input Mariah, delete; output: all clients are Britney and Christina
 Icebox:
 11. Update stylist information; input: Demi -> De'mi; output: De'mi
-12. Delete stylish from system: input: Nicole, delete; output: all stylists are Kerry and Demi
+12. Delete stylist from system: input: Nicole, delete; output: all stylists are Kerry and Demi
 13. Delete all clients from one stylist; input: delete all from Demi; output: Demi has no clients
 14. Add phone number information for clients; input: Britney, 123-456-7890; output: Britney, 123-456-7890
 15. Add notes section for clients: input: Christina, 098-765-4321, "hair has been dyed many times, be careful using bleach"; output: Christina, 098-765-4321, "hair has been dyed many times, be careful using bleach"
