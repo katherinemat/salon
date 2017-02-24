@@ -205,6 +205,39 @@ namespace Salon
       }
     }
 
+    public void UpdateNotes(string newNotes)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("UPDATE clients SET notes = @NewNotes OUTPUT INSERTED.notes WHERE id=@ClientId;", conn);
+
+      SqlParameter newNotesParameter = new SqlParameter();
+      newNotesParameter.ParameterName = "@NewNotes";
+      newNotesParameter.Value = newNotes;
+      cmd.Parameters.Add(newNotesParameter);
+
+      SqlParameter clientIdParameter = new SqlParameter();
+      clientIdParameter.ParameterName = "@ClientId";
+      clientIdParameter.Value = this.GetId();
+      cmd.Parameters.Add(clientIdParameter);
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        this._notes = rdr.GetString(0);
+      }
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+    }
+
     public void Delete()
     {
       SqlConnection conn = DB.Connection();

@@ -84,6 +84,19 @@ namespace Salon
     }
 
     [Fact]
+    public void UpdateNotes_OneClient_NewInfo()
+    {
+      Client newClient = new Client("Brit", "be careful about using too much bleach", 1);
+      newClient.Save();
+      string newNotes = "does not like choppy layers";
+      newClient.UpdateNotes(newNotes);
+
+      string output = newClient.GetNotes();
+
+      Assert.Equal(newNotes, output);
+    }
+
+    [Fact]
     public void Find_AllClients_FoundClient()
     {
       Client client1 = new Client("Britney", "be careful about using too much bleach", 1);
