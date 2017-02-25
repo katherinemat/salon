@@ -100,6 +100,27 @@ namespace Salon
         model.Add("stylists", allStylists);
         return View["clients.cshtml", model];
       };
+      Get["/stylist/edit/{id}"] = parameters => {
+        Stylist foundStylist = Stylist.Find(parameters.id);
+        return View["stylist_edit.cshtml", foundStylist];
+      };
+      Patch["stylist/edit/{id}"] = parameters => {
+        Stylist foundStylist = Stylist.Find(parameters.id);
+        string newName = Request.Form["stylist-name"];
+        if (newName != "")
+        {
+          foundStylist.UpdateName(newName);
+        }
+        Stylist updatedStylist = Stylist.Find(parameters.id);
+        return View["stylist_edit.cshtml", updatedStylist];
+      };
+      Delete["stylist/{id}/deleted"] = parameters => {
+        Stylist deletedStylist = Stylist.Find(parameters.id);
+        deletedStylist.Delete();
+
+        List<Stylist> allStylists = Stylist.GetAll();
+        return View["stylists.cshtml", allStylists];
+      };
     }
   }
 }
