@@ -1,0 +1,21 @@
+body {
+  font-family: 'Roboto Slab', serif;
+  background-color: #EEE4E1;
+}
+
+a {
+  color: black;
+}
+
+a:hover {
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+#header {
+  font-size: 20px;
+  min-height: 100px;
+  line-height: 100px;
+  background-color: #B2967D;
+}

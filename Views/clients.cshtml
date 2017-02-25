@@ -1,33 +1,43 @@
 @{
     Layout="Shared/_Layout.cshtml";
 }
+<div class="row">
+  <div class="col-xs-3">
+    <h2>Add new client</h2>
+    <form action="/clients/new" method="post" id="new-client">
 
-@foreach (var client in @Model["clients"])
-{
-  <h3>@client.GetName()</h3>
-  <p>@client.GetNotes()</p>
-  <a href="/client/edit/@client.GetId()">Edit this client information</a>
-  <!-- display client's stylist here. maybe with new column in client table? -->
-}
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input class="form-control" type="text" name="name" id="name">
+      </div>
 
-<h2>Add new client</h2>
-<form action="/clients/new" method="post" id="new-client">
-  <label for="name">Name</label>
-  <input type="text" name="name" id="name">
+      <label for="stylist-id">Stylist</label>
+      <select class="form-control" name="stylist-id">
+        <option value="0"></option>
+        @foreach (var stylist in @Model["stylists"])
+        {
+          <option value="@stylist.GetId()">@stylist.GetName()</option>
+        }
+      </select>
 
-  <label for="stylist-id">Stylist</label>
-  <select name="stylist-id">
-    <option value="0"></option>
-    @foreach (var stylist in @Model["stylists"])
+      <div class="form-group">
+        <label for="notes">Notes</label>
+        <textarea class="form-control" type="text" rows="3" name="notes" id="notes"></textarea>
+      </div>
+
+      <button type="submit" name="button" class="btn btn-lg btn-info">Submit</button>
+    </form>
+  </div>
+
+  <div class="col-xs-1 whitespace"></div>
+  
+  <div class="col-xs-8">
+    @foreach (var client in @Model["clients"])
     {
-      <option value="@stylist.GetId()">@stylist.GetName()</option>
+      <h3>@client.GetName()</h3>
+      <p>@client.GetNotes()</p>
+      <a href="/client/edit/@client.GetId()">Edit this client information</a>
+      <!-- display client's stylist here. maybe with new column in client table? -->
     }
-  </select>
-
-  <label for="notes">Notes</label>
-  <input type="text" name="notes" id="notes">
-
   </div>
 </div>
-<button type="submit" name="button" class="btn btn-lg btn-info">Submit</button>
-</form>

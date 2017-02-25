@@ -1,20 +1,28 @@
 @{
-    Layout="Shared/_Layout.cshtml";
+  Layout="Shared/_Layout.cshtml";
 }
+<div class="row">
+  <div class="col-xs-3">
+    <h2>Add new stylist</h2>
+    <form action="/stylists/new" method="post" id="new-stylist">
 
-@foreach (var stylist in @Model)
-{
-  <h3><a href="/stylist/@stylist.GetId()">@stylist.GetName()</a></h3>
-  <a href="/stylist/edit/@stylist.GetId()">Edit this stylist</a>
-  <!-- display all stylist's clients? -->
-}
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input class="form-control" type="text" name="name" id="name">
+      </div>
 
-<h2>Add new stylist</h2>
-<form action="/stylists/new" method="post" id="new-stylist">
-  <label for="name">Name</label>
-  <input type="text" name="name" id="name">
+      <button type="submit" name="button" class="btn btn-lg btn-info">Submit</button>
+    </form>
+  </div>
 
+  <div class="col-xs-1 whitespace"></div>
+
+  <div class="col-xs-8">
+    @foreach (var stylist in @Model)
+    {
+      <h3><a href="/stylist/@stylist.GetId()">@stylist.GetName()</a></h3>
+      <a href="/stylist/edit/@stylist.GetId()">Edit this stylist</a>
+      <!-- display all stylist's clients? -->
+    }
   </div>
 </div>
-<button type="submit" name="button" class="btn btn-lg btn-info">Submit</button>
-</form>

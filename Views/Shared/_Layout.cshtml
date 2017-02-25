@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link type="text/css" rel="stylesheet" href="/Content/css/bootstrap/css.bootstrap.css" media="screen">
+    <link type="text/css" rel="stylesheet" href="/Content/css/bootstrap/css/bootstrap.css" media="screen">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab|Sree+Krushnadevaraya|Vollkorn" rel="stylesheet">
     <link href="/Content/css/styles.css" rel="stylesheet" type="text/css">
     <script src="/Content/js/jquery-3.1.1.js"></script>
     <script type="text/javascript" src="/Contents/js/scripts.js"></script>
@@ -9,12 +10,15 @@
     <title>Hair Salon</title>
   </head>
   <body>
-    <div class="header">
-      <a href="/">Home</a>
-      <a href="/clients">Clients</a>
-      <a href="/stylists">Stylists</a>
-    </div>
     <div class="container">
+    <div class="row" id="header">
+      <div class="col-xs-2" id="logo"></div>
+      <div class="col-xs-5 whitespace"></div>
+      <div class="col-xs-1"><a href="/">Home</a></div>
+      <div class="col-xs-1"><a href="/clients">Clients</a></div>
+      <div class="col-xs-1"><a href="/stylists">Stylists</a></div>
+      <div class="col-xs-2 whitespace"></div>
+    </div>
       @RenderBody()
     </div>
   </body>

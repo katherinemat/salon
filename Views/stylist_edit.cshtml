@@ -2,19 +2,29 @@
     Layout="Shared/_Layout.cshtml";
 }
 
-<h2>Edit stylist: @Model.GetName()</h2>
-<form action="/stylist/edit/@Model.GetId()" method="post" id="update-stylist">
-  <input type="hidden" name="_method" value="PATCH">
+<div class="row">
+  <div class="col-xs-3">
+    <h2>Edit stylist: @Model.GetName()</h2>
+    <form action="/stylist/@Model.GetId()/deleted" method="post">
+      <input type="hidden" name="_method" value="DELETE">
+      <button type="submit" name="button" class="btn btn-warning">Delete this Stylist</button>
+    </form>
 
-  <label for="stylist-name">Name</label>
-  <input id="stylist-name" name="stylist-name" type="text" placeholder="@Model.GetName()">
+    <a href="/stylists">Done</a>
+  </div>
 
-  <button type="submit" class="btn btn-lg btn-info">Submit</button>
-</form>
+  <div class="col-xs-1 whitespace"></div>
 
-<form action="/stylist/@Model.GetId()/deleted" method="post">
-  <input type="hidden" name="_method" value="DELETE">
-  <button type="submit" name="button" class="btn btn-warning">Delete this Stylist</button>
-</form>
+  <div class="col-xs-8">
+    <form action="/stylist/edit/@Model.GetId()" method="post" id="update-stylist">
+      <input type="hidden" name="_method" value="PATCH">
 
-<a href="/stylists">Done</a>
+      <div class="form-group">
+        <label for="stylist-name">Name</label>
+        <input class="form-control" id="stylist-name" name="stylist-name" type="text" placeholder="@Model.GetName()">
+      </div>
+
+      <button type="submit" class="btn btn-lg btn-info">Submit</button>
+    </form>
+  </div>
+</div>
