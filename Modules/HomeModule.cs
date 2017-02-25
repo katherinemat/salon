@@ -65,9 +65,21 @@ namespace Salon
       };
       Patch["client/edit/{id}"] = parameters => {
         Client foundClient = Client.Find(parameters.id);
-        foundClient.UpdateName(Request.Form["client-name"]);
-        foundClient.UpdateNotes(Request.Form["client-notes"]);
-        foundClient.UpdateStylistId(Request.Form["client-stylist"]);
+        string newName = Request.Form["client-name"];
+        string newNotes = Request.Form["client-notes"];
+        int newStylistId = Request.Form["client-stylist"];
+        if (newName != "")
+        {
+          foundClient.UpdateName(newName);
+        }
+        if (newNotes != "")
+        {
+          foundClient.UpdateNotes(newNotes);
+        }
+        if (newStylistId != null)
+        {
+          foundClient.UpdateStylistId(newStylistId);
+        }
         Dictionary<string, object> model = new Dictionary<string, object>{};
         var updatedClient = Client.Find(parameters.id);
         model.Add("client", updatedClient);
