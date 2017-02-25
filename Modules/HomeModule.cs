@@ -89,6 +89,17 @@ namespace Salon
         model.Add("stylists", allStylists);
         return View["client_edit.cshtml", model];
       };
+      Delete["client/{id}/deleted"] = parameters => {
+        Client deletedClient = Client.Find(parameters.id);
+        deletedClient.Delete();
+
+        Dictionary<string, object> model = new Dictionary<string, object>{};
+        var allClients = Client.GetAll();
+        model.Add("clients", allClients);
+        var allStylists = Stylist.GetAll();
+        model.Add("stylists", allStylists);
+        return View["clients.cshtml", model];
+      };
     }
   }
 }

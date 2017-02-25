@@ -26,4 +26,9 @@
   <button type="submit" class="btn btn-lg btn-info">Submit</button>
 </form>
 
+<form action="/client/@Model["client"].GetId()/deleted" method="post">
+  <input type="hidden" name="_method" value="DELETE">
+  <button type="submit" name="button" class="btn btn-warning">Delete this Client</button>
+</form>
+
 <a href="/stylist/@Model["stylist"].GetId()">Done</a>
